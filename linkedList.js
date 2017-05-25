@@ -22,7 +22,7 @@ function linkedListGenerator(){
 
   //publ methods
   function getHead() {
-
+    return _listHead;
   }
 
   function addValue(value) {
@@ -31,12 +31,11 @@ function linkedListGenerator(){
       nextNode : null
     };
     if( _listHead === null ) {// if list is empty, make this the head
-      _listHead = newNode;
+      _setListHead(newNode);
     } else {              //otherwise append to tail node
       _listTail.nextNode = newNode;
     }
-    _listTail = newNode;
-
+    _setListTail(newNode);
 
   }
 
