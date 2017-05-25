@@ -52,8 +52,23 @@ function linkedListGenerator(){
 
   }
 
-  function get() {
+  function get(index) {
+    var position = 0;
+    var currentNode = _listHead;
+    if( currentNode === null ) {
+      currentNode = false;
+    } else {
+      while( position < index ) {
+        if( currentNode.next === null ) {
+          currentNode = false;
+          break;
+        }
+        position++;
+        currentNode = currentNode.next;
+      }
+    }
 
+    return currentNode;
   }
 
   function insert() {
