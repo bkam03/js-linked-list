@@ -49,10 +49,10 @@ function linkedListGenerator(){
   }
 
   function remove( index ) {
-    displayList();
     var position = 0;
     var currentNode = _listHead;
     var previousNode = null;
+
     if( currentNode === null ) { //for empty lists
       currentNode = false;
     } else {
@@ -65,10 +65,9 @@ function linkedListGenerator(){
         previousNode = currentNode;
         currentNode = currentNode.next;
       }
-    }
-    //at this point currentNode is false or has the target node
-    //if has target Node
-    if( currentNode !== false ) {
+    }  //returns false, or found node
+
+    if( currentNode !== false ) { //if the node exists
       if( previousNode === null ) {
         _setListHead( currentNode.next );
       } else if( currentNode.next === null ) {
@@ -77,16 +76,10 @@ function linkedListGenerator(){
       } else {
         previousNode.next = currentNode.next;
       }
-
-      //currentNode = previousNode;
-
-
-      //point previous node's next to the target Node's next
     } else {
       return false;
     }
-    displayList();
-    //return currentNode;
+
   }
 
   function get(index) {
@@ -106,17 +99,62 @@ function linkedListGenerator(){
         currentNode = currentNode.next;
       }
     }
-    console.log("iam getting" + currentNode.value );
+    //console.log("iam getting" + currentNode.value );
     return currentNode;  //return node, or false
   }
 
-  function insert() {
+  function insert(value, index) {
+    console.log("value " + value + " index " + index);
+    displayList();
+    var newNode = {
+      value : value,
+      next : null
+    };
 
+    var position = 0;
+    var currentNode = _listHead;
+    var previousNode = null;
+
+    //if list is empty set head and tail to it
+    if( _listHead === null ) {
+      _setListHead(newNode);
+      _setListTail(newNode);
+    } else {
+    while( position < index ) {  //search until index is found
+        if( currentNode.next === null ) { // return false if index is larger than list
+          currentNode = false;
+          break;
+        }
+        position++;
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+
+    }
+      if( previousNode === null ) {
+        console.log("head");
+        newNode.next = _listHead;
+        _listHead = newNode;
+      } else if( index === position ) {
+
+        if( currentNode.next === null ) {
+          console.log("tail");
+          previousNode.next = newNode;
+          newNode.next = currentNode;
+        } else {
+          console.log("middle");
+          console.log("currentNode", currentNode);
+          newNode.next = previousNode.next;
+          previousNode.next = newNode;
+        }
+      }
+
+    displayList();
   }
 
   function displayList() {
     var currentNode = _listHead;
-    while( currentNode.next != null ) {
+    while( currentNode.next !== null ) {
       console.log( currentNode.value );
       currentNode = currentNode.next;
     }
