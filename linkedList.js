@@ -33,7 +33,7 @@ function linkedListGenerator(){
     return _listTail;
   }
 
-  function addValue(value) {
+  function add(value) {
     var newNode = {
       value : value,
       nextNode : null
@@ -51,6 +51,6 @@ function linkedListGenerator(){
   return {
     getHead,
     getTail,
-    addValue
+    add
   };
 }
