@@ -48,18 +48,57 @@ function linkedListGenerator(){
     return newNode;
   }
 
-  function remove() {
+  function remove( index ) {
+    displayList();
+    var position = 0;
+    var currentNode = _listHead;
+    var previousNode = null;
+    if( currentNode === null ) { //for empty lists
+      currentNode = false;
+    } else {
+      while( position < index ) {  //search until index is found
+        if( currentNode.next === null ) { // return false if index is larger than list
+          currentNode = false;
+          break;
+        }
+        position++;
+        previousNode = currentNode;
+        currentNode = currentNode.next;
+      }
+    }
+    //at this point currentNode is false or has the target node
+    //if has target Node
+    if( currentNode !== false ) {
+      if( previousNode === null ) {
+        _setListHead( currentNode.next );
+      } else if( currentNode.next === null ) {
+        _setListTail(previousNode);
+        previousNode.next = null;
+      } else {
+        previousNode.next = currentNode.next;
+      }
 
+      //currentNode = previousNode;
+
+
+      //point previous node's next to the target Node's next
+    } else {
+      return false;
+    }
+    displayList();
+    //return currentNode;
   }
 
   function get(index) {
     var position = 0;
     var currentNode = _listHead;
-    if( currentNode === null ) {
+    if( currentNode === null ) { //for empty lists
+      console.log( "getError list is empty" );
       currentNode = false;
     } else {
-      while( position < index ) {
-        if( currentNode.next === null ) {
+      while( position < index ) {  //search until index is found
+        if( currentNode.next === null ) { // return false if index is larger than list
+          console.log("getError end of list");
           currentNode = false;
           break;
         }
@@ -67,12 +106,21 @@ function linkedListGenerator(){
         currentNode = currentNode.next;
       }
     }
-
-    return currentNode;
+    console.log("iam getting" + currentNode.value );
+    return currentNode;  //return node, or false
   }
 
   function insert() {
 
+  }
+
+  function displayList() {
+    var currentNode = _listHead;
+    while( currentNode.next != null ) {
+      console.log( currentNode.value );
+      currentNode = currentNode.next;
+    }
+    console.log("@@@@@");
   }
 
 
