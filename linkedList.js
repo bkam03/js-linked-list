@@ -47,10 +47,25 @@ function linkedListGenerator(){
 
   }
 
+  function remove() {
+
+  }
+
+  function get() {
+
+  }
+
+  function insert() {
+
+  }
+
 
   return {
     getHead,
     getTail,
-    add
+    add,
+    remove,
+    get,
+    insert
   };
 }
