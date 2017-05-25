@@ -9,20 +9,28 @@ function linkedListGenerator(){
   var _listHead = null;
   var _listTail = null;
 
+
   //private methods
   function _setListHead(newHeadNode) {
     _listHead = newHeadNode;
+
   }
   function _setListTail(newTailNode) {
     _listTail = newTailNode;
   }
 
+
   //publ var
+
 
 
   //publ methods
   function getHead() {
     return _listHead;
+  }
+
+  function getTail() {
+    return _listTail;
   }
 
   function addValue(value) {
@@ -39,8 +47,10 @@ function linkedListGenerator(){
 
   }
 
+
   return {
     getHead,
+    getTail,
     addValue
   };
 }
