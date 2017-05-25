@@ -36,15 +36,16 @@ function linkedListGenerator(){
   function add(value) {
     var newNode = {
       value : value,
-      nextNode : null
+      next : null
     };
     if( _listHead === null ) {// if list is empty, make this the head
       _setListHead(newNode);
     } else {              //otherwise append to tail node
-      _listTail.nextNode = newNode;
+      _listTail.next = newNode;
     }
     _setListTail(newNode);
 
+    return newNode;
   }
 
   function remove() {
