@@ -2,6 +2,15 @@ function linkedListGenerator(){
  var _head = null;
   var _tail = null;
 
+  function _createNode(value) {
+    var newNode = {
+      previousNode : null,
+      value : value,
+      nextNode : null
+    };
+    return newNode;
+  }
+
   function _getHead() {
     return _head;
   }
@@ -11,11 +20,7 @@ function linkedListGenerator(){
   }
 
   function _add(value) {
-    var newNode = {
-      previousNode : null,
-      value : value,
-      nextNode : null
-    };
+    var newNode = _createNode(value);
     if( _getHead() !== null ) { //if list is not empty
       var formerEndElement = _getTail();
       formerEndElement.nextNode = newNode;
@@ -29,6 +34,7 @@ function linkedListGenerator(){
   } //add new node to end of list.  return new node.
 
   function _get(index) {
+
     var firstNode = _head;
     function findNode(number, currentNode) {
       if( number === 0 ) {
@@ -41,7 +47,10 @@ function linkedListGenerator(){
         return findNode( --number, currentNode.nextNode );
       }
     }
-    if( firstNode !== null ) {
+    if( index < 0 ) {
+      index = 0;
+    }
+    if( firstNode !== null ) { //return false if list is empty
       return findNode(index, firstNode);
     } else {
       return false;
@@ -52,7 +61,10 @@ function linkedListGenerator(){
     var nodeToRemove = _get(index);
     if( nodeToRemove !== null && nodeToRemove !== false ) { //only attempt remove if index exists,
       if( nodeToRemove.previousNode === null ) { //removing head of list
-        _head = _head.nextNode;
+        _head = _getHead().nextNode;
+        if(_head === null) { //if item is last in list
+          _tail = null;
+        }
         if(_getHead() !== null ) {
           _getHead().previousNode = null;
         }
@@ -67,7 +79,39 @@ function linkedListGenerator(){
   }
 
   function _insert(value, index) {
+    var newNode = _createNode(value);
+    var target = _get(index);
 
+    if( target === false || target.nextNode === null ) { //if list is empty, inserting beyond list, or end of list
+      _add(value);
+    } else if ( target.previousNode === null ) {
+      newNode.nextNode = target;
+      target.previousNode = newNode;
+      _head = newNode;
+    } else { //if inserting between nodes
+      newNode.nextNode = target;
+      newNode.previousNode = target.previousNode;
+      target.previousNode.nextNode = newNode;
+      target.previousNode = newNode;
+    }
+
+    /*
+    if list is empty or beyond list (get returns false)
+      usea add function to add node
+    if at end
+      use add function
+
+    if at beginning
+      set new next to head
+      set head prev to new
+      set head to new
+
+    if between nodes
+      set newNext to currentNode
+      set newPrev to currentNode's previous
+      set currentNode prev next to newNode
+      set currentNode prev to newNode
+      */
   }
 
   function _displayList() {
@@ -109,18 +153,29 @@ linkedList.add("fourth");
 
 linkedList.displayList();
 
+console.log("got :" + linkedList.get(-1).value);
 console.log("got :" + linkedList.get(0).value);
 console.log("got :" + linkedList.get(1).value);
 console.log("got :" + linkedList.get(2).value);
 console.log("got :" + linkedList.get(3).value);
 
-console.log("\nremoving test\n");
-linkedList.remove(4);
+/*console.log("\nremoving test\n");
 linkedList.remove(0);
 linkedList.remove(0);
 linkedList.remove(0);
 linkedList.remove(0);
-linkedList.remove(2);
+*/
+
+linkedList.insert("zero", 0);
+linkedList.insert("-1", -1);
+linkedList.insert("middle", 3);
+linkedList.insert("five", 7);
+linkedList.insert("4.5", 6);
 
 
 linkedList.displayList();
+
+
+
+console.log("Head " + linkedList.getHead().value);
+console.log("Tail " + linkedList.getTail().value);
